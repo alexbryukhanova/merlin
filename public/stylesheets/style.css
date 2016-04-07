@@ -1,0 +1,55 @@
+html, body {
+    height: 100%;
+    width: 100%;
+}
+body {
+  font: 14px "Lucida Grande", Helvetica, Arial, sans-serif;
+}
+
+a {
+  color: #00B7FF;
+}
+
+#content {
+    min-height: 100%;
+}
+
+.step {
+    min-height: 100%;
+    border-top: 2px solid #dddddd;
+
+}
+.wizard-step {
+    display: block !important;
+    width: 20px !important;
+    height: 20px !important;
+    background-color: #ffffff !important;
+}
+.wizard-step.active {
+    background-color: #ff4081 !important;
+}
+
+.carousel-enter {
+    margin-top: 25px;
+    opacity: 0.01;
+ }
+.carousel-enter.carousel-enter-active {
+    margin-top: 0;
+    opacity: 1;
+    -webkit-transition: margin-top 0.5s ease-in, opacity 0.75s ease-in;
+    -moz-transition: margin-top 0.5s ease-in, opacity 0.75s ease-in;
+    -ms-transition: margin-top 0.5s ease-in, opacity 0.75s ease-in;
+    -o-transition: margin-top 0.5s ease-in, opacity 0.75s ease-in;
+    transition: margin-top 0.5s ease-in, opacity 0.75s ease-in;
+}
+.carousel-leave {
+    opacity: 1;
+}
+.carousel-leave.carousel-leave-active {
+    opacity: 0.01;
+    -webkit-transition: opacity .5s ease-in;
+    -moz-transition: opacity .5s ease-in;
+    -ms-transition: opacity .5s ease-in;
+    -o-transition: opacity .5s ease-in;
+    transition: opacity .5s ease-in;
+}
