@@ -10,24 +10,39 @@ var ChooseComputer_WizardStep = require('./computerchoice');
 var Done_WizardStep = require('./done');
 
 var Step = React.createClass({
+
     next: function () {
-        this.props.nextStep(this.props.stepId);
+        this.props.nextStep();
     },
     componentDidMount: function() {
-        if(this.props.active) {
-            var node = this.getDOMNode();
-            $('html, body').animate({
-                scrollTop: $(node).offset().top
-            }, 500);
+        this.scrollToSelf();
+        window.addEventListener('scroll', this.scrollStep);
+    },
+
+    componentWillUnmount: function() {
+        window.removeEventListener('scroll', this.scrollStep);
+    },
+
+    scrollStep: function (scrollEvent) {
+        let clientHeightQualifier = window.innerHeight / 2;
+
+        var domElement = this.getDOMNode();
+        var elementBounds = domElement.getBoundingClientRect();
+        if (elementBounds.top <= clientHeightQualifier && elementBounds.bottom >= clientHeightQualifier) {
+            this.props.selectStep(this.props.stepId, false);
         }
+    },
+
+    scrollToSelf: function() {
+        var node = this.getDOMNode();
+        $('html, body').animate({
+            scrollTop: $(node).offset().top
+        }, 500);
     },
 
     componentWillReceiveProps: function (newProps) {
         if(newProps.active) {
-            var node = this.getDOMNode();
-            $('html, body').animate({
-                scrollTop: $(node).offset().top
-            }, 500);
+            this.scrollToSelf();
         }
     },
 

@@ -14,7 +14,7 @@ var Team = React.createClass({
         return (
             <div className="step">
                 <div className="col-md-offset-1 col-md-10">
-                    <h3>
+                    <h3 className="header">
                     Lifion Tribe
                         <p><small>People around the lab you should meet</small></p>
                     </h3>

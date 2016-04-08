@@ -17,8 +17,12 @@ a {
 .step {
     min-height: 100%;
     border-top: 2px solid #dddddd;
-
 }
+.step:not(:first-child) .header {
+    border-left: 5px solid #00B7FF;
+    padding-left: 10px;
+}
+
 .wizard-step {
     display: block !important;
     width: 20px !important;
@@ -52,4 +56,14 @@ a {
     -ms-transition: opacity .5s ease-in;
     -o-transition: opacity .5s ease-in;
     transition: opacity .5s ease-in;
+}
+
+.start-step {
+    position: absolute !important;
+    bottom: 10% !important;
+    left: 50% !important;
+}
+
+.not-selected {
+    opacity: 0.5;
 }

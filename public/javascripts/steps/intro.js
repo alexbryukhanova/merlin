@@ -32,7 +32,7 @@ var Intro = React.createClass({
                     </div>
                 </div>
                 <div className="col-md-offset-1 col-md-10">
-                    <h3>
+                    <h3 className="header">
                         Our People
                         <p><small>Culture at ADP Chelsea Innovation Lab</small></p>
                     </h3>

@@ -13,7 +13,7 @@ var Job = React.createClass({
         return (
             <div className="step active">
                 <div className="col-md-offset-1 col-md-10">
-                    <h3>
+                    <h3 className="header">
                     What You'll Do
                         <p><small>Here's how we work</small></p>
                     </h3>

@@ -1,8 +1,7 @@
 /**
  * Created by bryukhaa on 11/5/15.
  */
-var RaisedButton = mui.RaisedButton
-    ;
+var RaisedButton = mui.RaisedButton;
 
 var Welcome = React.createClass({
     getInitialState: function () {
@@ -11,31 +10,27 @@ var Welcome = React.createClass({
         };
     },
     next: function () {
-        // Scroll down
-//        var node = this.getDOMNode();
-//        node.scrollTop = node.scrollHeight;
-
         // Load next step
         this.props.nextStep('whoweare');
     },
     render: function () {
         return (
-            <div style={{
-                height: '100%'
-                }}>
-                <iframe src="https://www.youtube.com/embed/I0cKFPoFucw" 
+            <div className="step">
+                <iframe src="https://www.youtube.com/embed/I0cKFPoFucw"
                         style={{ 
                             border: 0,
                              minHeight: '100%',
                              width: '100%', 
                             position: 'absolute'
-                         }}> </iframe>
+                 }}>
+                </iframe>
 
-                <RaisedButton label="Start" primary={true} onClick={this.next}
-                    style={{
-                        backgroundColor: 'red'
-
-                    }}/>
+                <RaisedButton label="Start onboarding" primary={true} onClick={this.next}
+                              style={{
+                                  position: 'absolute',
+                                  bottom: '10%',
+                                  left: '45%'
+                              }}/>
             </div>
         );
     }

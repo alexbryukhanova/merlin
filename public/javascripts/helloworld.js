@@ -1,4 +1,4 @@
-const FontIcon = require('material-ui/lib/font-icon');
+FontIcon = require('material-ui/lib/font-icon');
 var Step = require('./steps/step');
 var ThemeManager = new mui.Styles.ThemeManager(),
     Card = mui.Card,
@@ -14,13 +14,6 @@ var MyComponent = React.createClass({
         childContextTypes: {
             muiTheme: React.PropTypes.object
         },
-        componentDidMount: function() {
-          window.addEventListener('scroll', this.scrollSteps);
-        },
-
-        componentWillUnmount: function() {
-          window.removeEventListener('scroll', this.scrollSteps);
-        },
         getChildContext: function(){
             return {
                 muiTheme: ThemeManager.getCurrentTheme()
@@ -31,34 +24,37 @@ var MyComponent = React.createClass({
                 stepsSequence: ['welcome', 'whoweare', 'whatyoulldo', 'meetyourteam', 'phoneselect', 'computerselect', 'done'],
                 currentStep: 'welcome',
                 steps: ['welcome'],
-                isSettingsOpen: true
+                isSettingsOpen: true,
+                viewAutochange: true
             };
         },
         nextStep: function () {
             var currentIndex = this.state.stepsSequence.indexOf(this.state.currentStep);
-            if(currentIndex < this.state.stepsSequence.length - 1) {
+            // Check if the next step is already there
+            var nextStep = this.state.stepsSequence[currentIndex + 1];
+            if(currentIndex + 1 < this.state.steps.length) {
+                this.selectStep(nextStep, true);
+            } else if(currentIndex < this.state.stepsSequence.length - 1) {
                 // Not the end of the wizard yet
-                var nextStep = this.state.stepsSequence[currentIndex + 1];
+
                 var comms = this.state.steps.concat(nextStep);
 
                 var newState = $.extend({}, this.state);
                 newState.steps = comms;
                 newState.currentStep = nextStep;
+                newState.viewAutochange = true;
                 this.setState(newState);
             }
         },
-        selectStep: function(step) {
+        selectStep: function(step, viewAutochange) {
           var newState = $.extend({}, this.state);
           newState.currentStep = step;
+          newState.viewAutochange = viewAutochange;
           this.setState(newState);
         },
         closePopover: function () {
             this.state.isSettingsOpen = false;
             this.setState(this.state);
-        },
-
-        scrollStep: function (scrollEvent) {
-          let scrollTop = scrollEvent.srcElement.body.scrollTop;
         },
 
         render: function(){
@@ -68,8 +64,9 @@ var MyComponent = React.createClass({
                 cardElements.push((
                     <Step key={this.state.steps[x]}
                           stepId={this.state.steps[x]}
-                          active={this.state.currentStep === this.state.steps[x]}
+                          active={this.state.viewAutochange && this.state.currentStep === this.state.steps[x]}
                           nextStep={this.nextStep}
+                          selectStep={this.selectStep}
                     />));
             }
             for(var x = 0; x < this.state.steps.length; x++) {
@@ -85,8 +82,7 @@ var MyComponent = React.createClass({
                                                   width: '20px',
                                                   height: '20px',
                                                   margin: '10px'}}
-                                          className={className}
-                    >
+                                          className={className}>
                     </FloatingActionButton>
                 );
             }
@@ -97,8 +93,7 @@ var MyComponent = React.createClass({
                           style={{
                               float: 'right',
                               margin: '15px'
-                          }}
-                      >
+                          }}>
                           <FontIcon className="material-icons">settings</FontIcon>
                       </FloatingActionButton>
                       <div style={{
@@ -112,14 +107,6 @@ var MyComponent = React.createClass({
                     <ReactCSSTransitionGroup style={{height: '100%'}} id="parent" transitionName="carousel" component="div">
                         {cardElements}
                     </ReactCSSTransitionGroup>
-
-                    <Popover open={this.state.isSettingsOpen}
-                    anchorOrigin={{ horizontal:"right", vertical:"bottom" }}
-                    targetOrigin={{ horizontal:"right", vertical:"top" }}
-                    onRequestClose={this.closePopover}
-                    label="Hello">
-                        <span>Hello, World!</span>
-                    </Popover>
                 </div>
             );
         }
@@ -128,56 +115,3 @@ var MyComponent = React.createClass({
 
 module.exports = MyComponent;
 
-//window.addEventListener('DOMContentLoaded', render);
-
-
-//React.render(<Card />, document.getElementById('content'));
-
-//var CommentBox = React.createClass({
-//    getInitialState: function(){
-//        return {
-//            comments: [ "I am the first comment!" ]
-//        }
-//    },
-//    nextPage: function(){
-//        //var comms = this.state.comments.concat([prompt('Enter your comment')]);
-//        var comms = this.state.comments.concat('asdf');
-//        this.setState({ comments: comms});
-//    },
-//    render: function() {
-//        var commentElements = this.state.comments.map(function(item, i) {
-//            return (
-//                <Comment index={i} key={i}>
-//                        {item}
-//                </Comment>
-//                );
-//        }.bind(this));
-//        return (
-//            <div className="commentBox">
-//                <h1>Comments</h1>
-//                <button onClick={this.nextPage}>Next</button>
-//                <div>
-//                    <ReactCSSTransitionGroup transitionName="carousel">
-//                        {commentElements}
-//                    </ReactCSSTransitionGroup>
-//                </div>
-//            </div>
-//            );
-//    }
-//});
-
-//var Comment = React.createClass({
-//    render: function() {
-//        return (
-//            <div className={'step' + this.props.index}>
-//            I am Comment #{this.props.index}
-//            </div>
-//            );
-//    }
-//});
-
-
-//React.render(
-//    <CommentBox />,
-//    document.getElementById('content')
-//);
