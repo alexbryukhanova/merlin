@@ -81,7 +81,7 @@ var MyComponent = React.createClass({
                                           style={{display: 'block',
                                                   width: '20px',
                                                   height: '20px',
-                                                  margin: '10px'}}
+                                                  margin: '25px'}}
                                           className={className}>
                     </FloatingActionButton>
                 );

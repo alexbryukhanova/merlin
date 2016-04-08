@@ -3,7 +3,7 @@
  */
 
 var FlatButton = mui.FlatButton,
-    RaisedButton = mui.RaisedButton;
+    SelectableItemGroup = require('../selectgroup');
 
 var ChoosePhone = React.createClass({
     next: function () {
@@ -15,20 +15,21 @@ var ChoosePhone = React.createClass({
         this.props.nextStep();
     },
     render: function () {
+        let phones = [];
         return (
             <div className="col-md-offset-1 col-md-10">
-                <div className="row">
-                    <div className="col-md-4 text-center">
-                        <h5>Nokia slider</h5>
-                    </div>
-                    <div className="col-md-4 text-center">
-                        <h5>iPhone(R) 5S</h5>
-                    </div>
-                    <div className="col-md-4 text-center">
-                        <h5>iPhone(R) 6</h5>
-                    </div>
-                </div>
-                <div className="text-center">
+                <h3 style={{ marginBottom: '100px' }} className="header">
+                    Your work phone
+                    <p><small>For efficiency on the go</small></p>
+                </h3>
+
+                <SelectableItemGroup>
+                    {phones}
+                </SelectableItemGroup>
+
+                <div className="col-md-12 text-center" style={{
+                        marginTop: '100px'
+                    }}>
                     <FlatButton label="Now pick your machine >>" primary={true} onClick={this.next} />
                 </div>
             </div>
